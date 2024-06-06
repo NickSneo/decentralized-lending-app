@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import Navbar from '../../components/Navbar';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
-import { ethers, JsonRpcSigner } from 'ethers';
+import withAuth from '../../components/withAuth';
 
 interface Swap {
     id: string;
@@ -21,48 +19,15 @@ interface Swap {
     timestamp: string;
 }
 
-const Dashboard = () => {
-    const { data: session, status } = useSession();
-    const [account, setAccount] = useState<string | null>(null);
+const Dashboard = ({ account }) => {
     const [data, setData] = useState<Swap[]>([]);
     const [loading, setLoading] = useState(true);
-    const router = useRouter();
 
     useEffect(() => {
-        if (status === 'loading') return; // Wait for session to load
-        if (!session) {
-            router.push('/auth/signin');
-        } else {
-            checkWalletConnection();
-        }
-    }, [session, status]);
-
-    const checkWalletConnection = async () => {
-        if (typeof window !== 'undefined' && typeof window.ethereum !== 'undefined') {
-            try {
-                const provider = new ethers.BrowserProvider(window.ethereum);
-                const accounts: JsonRpcSigner[] = await provider.listAccounts();
-                if (accounts.length > 0) {
-                    setAccount(accounts[0].address);
-                } else {
-                    router.push('/auth/wallet-connect');
-                }
-            } catch (error) {
-                console.error('Error checking wallet connection:', error);
-            }
-        } else {
-            console.log('MetaMask is not installed');
-        }
-    };
-
-    useEffect(() => {
-        if (!account) return;
         async function fetchData() {
             try {
                 const response = await fetch('/api/uniswap');
                 const uniswapData = await response.json();
-                // const responsePancake = await fetch('/api/pancakeswap');
-                // const pancakeData = await responsePancake.json();
                 setData([...uniswapData.data.swaps]);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -71,18 +36,16 @@ const Dashboard = () => {
             }
         }
         fetchData();
-    }, [account]);
+    }, []);
 
     const formatPrice = (reserveUSD: string, totalSupply: string) => {
         if (parseFloat(totalSupply) === 0) return 'N/A';
         return (parseFloat(reserveUSD) / parseFloat(totalSupply)).toFixed(6);
     };
 
-    if (status === 'loading' || loading) {
+    if (loading) {
         return <div className="flex items-center justify-center min-h-screen text-lg">Loading...</div>;
     }
-
-    if (!session || !account) return null;
 
     return (
         <div className="min-h-screen bg-gray-100">
@@ -128,4 +91,4 @@ const Dashboard = () => {
     );
 }
 
-export default Dashboard;
+export default withAuth(Dashboard);

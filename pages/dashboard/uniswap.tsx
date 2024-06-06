@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Navbar from '../../components/Navbar';
+import withAuth from '../../components/withAuth';
 
 interface Swap {
     id: string;
@@ -18,7 +19,7 @@ interface Swap {
     timestamp: string;
 }
 
-const Uniswap = (props) => {
+const Uniswap = ({ account }) => {
     const [data, setData] = useState<Swap[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -90,4 +91,4 @@ const Uniswap = (props) => {
     );
 }
 
-export default Uniswap;
+export default withAuth(Uniswap);
