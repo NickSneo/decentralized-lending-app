@@ -93,7 +93,15 @@ export default function WalletConnect() {
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md text-center">
                 <h1 className="text-3xl font-bold mb-6">Welcome, {session.user?.email}</h1>
                 {account ? (
-                    <p className="text-lg text-gray-700 mb-6 break-all">Connected account: {account}</p>
+                    <>
+                        <p className="text-lg text-gray-700 mb-6 break-all">Connected account: {account}</p>
+                        <button
+                            onClick={() => router.push('/dashboard')}
+                            className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 mb-4"
+                        >
+                            Go to Dashboard
+                        </button>
+                    </>
                 ) : (
                     <button
                         onClick={connectWallet}

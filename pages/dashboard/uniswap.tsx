@@ -43,45 +43,49 @@ const Uniswap = (props) => {
     };
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <div className="flex items-center justify-center min-h-screen text-lg">Loading...</div>;
     }
 
     return (
-        <div>
+        <div className="min-h-screen bg-gray-100">
             <Navbar />
-            <h1>Uniswap Swaps</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Token Pair</th>
-                        <th>Price (USD)</th>
-                        <th>Transactions</th>
-                        <th>Volume (USD)</th>
-                        <th>Makers</th>
-                        <th>5m</th>
-                        <th>1h</th>
-                        <th>6h</th>
-                        <th>24h</th>
-                        <th>Liquidity</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data.map(swap => (
-                        <tr key={swap.id}>
-                            <td>{swap.pair.token0.symbol}/{swap.pair.token1.symbol}</td>
-                            <td>{formatPrice(swap.pair.reserveUSD, swap.pair.totalSupply)}</td>
-                            <td>{swap.pair.txCount}</td>
-                            <td>{swap.pair.volumeUSD}</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                            <td>{swap.pair.reserveUSD}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            <div className="container mx-auto p-4">
+                <h1 className="text-2xl font-bold mb-6 text-center">Uniswap Swaps</h1>
+                <div className="overflow-x-auto">
+                    <table className="min-w-full bg-white shadow-md rounded-lg">
+                        <thead>
+                            <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                                <th className="px-4 py-2">Token Pair</th>
+                                <th className="px-4 py-2">Price (USD)</th>
+                                <th className="px-4 py-2">Transactions</th>
+                                <th className="px-4 py-2">Volume (USD)</th>
+                                <th className="px-4 py-2">Makers</th>
+                                <th className="px-4 py-2">5m</th>
+                                <th className="px-4 py-2">1h</th>
+                                <th className="px-4 py-2">6h</th>
+                                <th className="px-4 py-2">24h</th>
+                                <th className="px-4 py-2">Liquidity</th>
+                            </tr>
+                        </thead>
+                        <tbody className="text-gray-700 text-sm">
+                            {data.map(swap => (
+                                <tr key={swap.id} className="border-b border-gray-200 hover:bg-gray-100">
+                                    <td className="px-4 py-2">{swap.pair.token0.symbol}/{swap.pair.token1.symbol}</td>
+                                    <td className="px-4 py-2">{formatPrice(swap.pair.reserveUSD, swap.pair.totalSupply)}</td>
+                                    <td className="px-4 py-2">{swap.pair.txCount}</td>
+                                    <td className="px-4 py-2">{swap.pair.volumeUSD}</td>
+                                    <td className="px-4 py-2">N/A</td>
+                                    <td className="px-4 py-2">N/A</td>
+                                    <td className="px-4 py-2">N/A</td>
+                                    <td className="px-4 py-2">N/A</td>
+                                    <td className="px-4 py-2">N/A</td>
+                                    <td className="px-4 py-2">{swap.pair.reserveUSD}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     );
 }
