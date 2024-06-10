@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 
-export default function SignUp(props) {
+export default function SignUp() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [address, setAddress] = useState('');
+    const [type, setType] = useState('borrower'); // Default to borrower
     const [error, setError] = useState('');
     const router = useRouter();
 
@@ -15,7 +16,7 @@ export default function SignUp(props) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email, password, address }),
+            body: JSON.stringify({ email, password, address, type }),
         });
 
         if (res.status === 201) {
@@ -60,6 +61,31 @@ export default function SignUp(props) {
                             required
                             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
+                    </div>
+                    <div>
+                        <label className="block text-gray-700 mb-2">Type:</label>
+                        <div className="flex space-x-4">
+                            <label className="flex items-center">
+                                <input
+                                    type="radio"
+                                    value="borrower"
+                                    checked={type === 'borrower'}
+                                    onChange={(e) => setType(e.target.value)}
+                                    className="form-radio"
+                                />
+                                <span className="ml-2 text-gray-700">Borrower</span>
+                            </label>
+                            <label className="flex items-center">
+                                <input
+                                    type="radio"
+                                    value="lender"
+                                    checked={type === 'lender'}
+                                    onChange={(e) => setType(e.target.value)}
+                                    className="form-radio"
+                                />
+                                <span className="ml-2 text-gray-700">Lender</span>
+                            </label>
+                        </div>
                     </div>
                     <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">
                         Sign Up

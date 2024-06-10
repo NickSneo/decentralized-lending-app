@@ -3,8 +3,8 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { ethers } from 'ethers';
 
-const withAuth = (WrappedComponent) => {
-    return (props) => {
+const withAuth = (WrappedComponent: any) => {
+    return (props: any) => {
         const { data: session, status } = useSession();
         const [account, setAccount] = useState<string | null>(null);
         const router = useRouter();

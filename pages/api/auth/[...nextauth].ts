@@ -30,8 +30,7 @@ export default NextAuth({
                 if (!isValidPassword) {
                     return null;
                 }
-
-                return { id: user.user_id, email: user.email };
+                return { id: String(user.user_id), email: user.email, address: user.address, type: user.type };
             }
         })
     ],
@@ -43,13 +42,14 @@ export default NextAuth({
     pages: {
         signIn: '/auth/signin',
         error: '/auth/error',
-        verifyRequest: '/auth/verify-request',
         newUser: '/auth/new-user'
     },
     callbacks: {
         async session({ session, token }) {
             console.log('Session callback:', token);
-            session.user = token.user;
+            if (token.user) {
+                session.user = token.user;
+            }
             return session;
         },
         async jwt({ token, user }) {

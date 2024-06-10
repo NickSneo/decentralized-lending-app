@@ -1,7 +1,7 @@
 import Navbar from '../../components/Navbar';
 import withAuth from '../../components/withAuth';
 
-const Dashboard = ({ account }) => {
+const Dashboard = () => {
     return (
         <div className="min-h-screen bg-gray-100">
             <Navbar />
