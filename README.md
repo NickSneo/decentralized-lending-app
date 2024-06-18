@@ -1,4 +1,7 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Decentralized Lending Dapp 
+
+- Deployed on Sepolia Network - https://decentralized-lending-app.vercel.app/
+- Contract Address - https://sepolia.etherscan.io/address/0xd67e48d764f087655bbfd1ff2c73f794183fd0ae
 
 ## Getting Started
 
