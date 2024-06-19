@@ -1,7 +1,7 @@
 # Decentralized Lending Dapp 
 
 - Deployed on Sepolia Network - https://decentralized-lending-app.vercel.app/
-- Contract Address - https://sepolia.etherscan.io/address/0xd67e48d764f087655bbfd1ff2c73f794183fd0ae
+- Contract Address - https://sepolia.etherscan.io/address/0x3a6B89e4f33361B7bAB88fe709ce26Cca7b2CA0e
 
 ## Getting Started
 
