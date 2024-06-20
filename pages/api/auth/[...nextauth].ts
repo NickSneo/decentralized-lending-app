@@ -21,7 +21,7 @@ export default NextAuth({
             },
             authorize: async (credentials) => {
                 if (!credentials) {
-                    return null;
+                    throw new Error('Credentials not provided');
                 }
 
                 const user = await prisma.user.findUnique({
@@ -29,13 +29,13 @@ export default NextAuth({
                 });
 
                 if (!user) {
-                    return null;
+                    throw new Error('User not found');
                 }
 
                 const isValidPassword = await bcrypt.compare(credentials.password, user.password);
 
                 if (!isValidPassword) {
-                    return null;
+                    throw new Error('Invalid password');
                 }
 
                 return { id: String(user.user_id), email: user.email, address: user.address, type: user.type };
